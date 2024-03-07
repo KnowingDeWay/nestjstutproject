@@ -3,6 +3,7 @@ import { QuizRepository } from '../repositories/quiz.repository';
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Quiz } from '../entities/quiz.entity';
+import { Question } from '../entities/question.entity';
 
 @Injectable()
 export class QuizService {
@@ -11,14 +12,19 @@ export class QuizService {
 
     }
 
-    getAllQuiz() {
-        return [1, 2, 3];
+    async getAllQuiz(): Promise<Quiz[]> {
+        return await this.quizRepository.createQueryBuilder('q')
+            .leftJoinAndSelect('q.questions', 'qt')
+            .leftJoinAndSelect('qt.options', 'o')
+            .getMany();
     }
 
     async getQuizById(id: number): Promise<Quiz> {
         return await this.quizRepository.findOne({
             where: {id: id},
-            relations: {questions: true}
+            relations: {questions: {
+                options: true
+            }}
         });
     }
 

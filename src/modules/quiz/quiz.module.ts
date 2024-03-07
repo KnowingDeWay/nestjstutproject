@@ -1,3 +1,6 @@
+import { OptionController } from './controllers/option.controller';
+import { OptionService } from './services/option.service';
+import { Option } from './entities/options.entity';
 import { QuestionService } from './services/question.service';
 import { QuestionController } from './controllers/question.controller';
 import { QuizRepository } from './repositories/quiz.repository';
@@ -9,8 +12,8 @@ import { Quiz } from './entities/quiz.entity';
 import { Question } from './entities/question.entity';
 
 @Module({
-    controllers: [QuizController, QuestionController],
-    providers: [QuizService, QuestionService],
-    imports: [TypeOrmModule.forFeature([Quiz, Question])]
+    controllers: [QuizController, QuestionController, OptionController],
+    providers: [QuizService, QuestionService, OptionService],
+    imports: [TypeOrmModule.forFeature([Quiz, Question, Option])]
 })
 export class QuizModule {}

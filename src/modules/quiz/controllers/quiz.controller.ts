@@ -2,6 +2,7 @@ import { CreateQuizDto } from '../dto/CreateQuiz.dto';
 import { QuizService } from '../services/quiz.service';
 import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Validate } from 'class-validator';
+import { Quiz } from '../entities/quiz.entity';
 
 @Controller('quiz')
 export class QuizController {
@@ -16,8 +17,8 @@ export class QuizController {
     }
     
     @Get('/')
-    getAllQuiz() {
-        return this.quizService.getAllQuiz();
+    async getAllQuiz() : Promise<Quiz[]> {
+        return await this.quizService.getAllQuiz();
     }
 
     @Post('/create')
