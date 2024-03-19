@@ -19,20 +19,27 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "npm run build && npx typeorm -d dist/db/data-source.js",
+    "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli src/config/typeorm.config-migrations.ts",
     "migration:generate": "npm run typeorm -- migration:generate",
     "migration:run": "npm run typeorm -- migration:run",
     "migration:revert": "npm run typeorm -- migration:revert",
     "migration:create": "npm run typeorm -- migration:create",
-    "migration:show": "npm run typeorm -- migration:show"
+    "migration:show": "npm run typeorm -- migration:show",
+    "db:create": "ts-node-esm ./node_modules/typeorm-extension/bin/cli.cjs db:create",
+    "db:drop": "ts-node-esm ./node_modules/typeorm-extension/bin/cli.cjs db:drop",
+    "seed:run": "ts-node-esm ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d dist/db/data-source.js",
+    "seed:create": "ts-node-esm ./node_modules/typeorm-extension/bin/cli.cjs seed:create"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^0.24.0",
+    "@faker-js/faker": "^8.4.1",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.3.0",
     "@nestjs/typeorm": "^10.0.2",
     "@types/bcrypt": "^5.0.2",
     "@types/passport": "^1.0.16",
@@ -42,6 +49,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "nestjs-typeorm-paginate": "^4.0.4",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
@@ -49,7 +57,8 @@
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "sqlserver": "^0.0.2-security",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-extension": "^3.5.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
